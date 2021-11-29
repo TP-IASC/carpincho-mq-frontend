@@ -2,7 +2,7 @@ import { Card } from "react-bootstrap";
 
 const ElementInfo = ({info}) => {
   return (
-    <Card>
+    <Card className="element-card">
       <Card.Body>
         <pre>
           {JSON.stringify(info, null, 2)} 

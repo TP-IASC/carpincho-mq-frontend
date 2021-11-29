@@ -20,8 +20,10 @@ const QueueInfo = () => {
 
   return (
     <>
-      <h1>{name}</h1>
-      {elements}
+      <h1 className="title">{name}</h1>
+      <div className="element-card-deck">
+        {elements}
+      </div>
     </>
   );
 }

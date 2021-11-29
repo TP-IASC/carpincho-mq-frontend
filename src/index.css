@@ -1,15 +1,17 @@
 
-.queue-card-deck {
+.queue-card-deck, .element-card-deck {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
+    margin-top: 3%;
 }
 
 .queue-card {
     flex: 1;
     padding: 2%;
     margin: 3%;
+    color: black;
 
     box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
     transition: .3s transform cubic-bezier(.155, 1.105,.295,1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
@@ -26,6 +28,18 @@
     font-weight: bold;
     padding: 1%;
 }
+
+.title {
+    display: flex;
+    justify-content: center;
+}
+
+
+.element-card {
+    flex: 1;
+    margin: 1%;
+}
+
 
 body {
     background-color: rgb(158, 183, 231);
