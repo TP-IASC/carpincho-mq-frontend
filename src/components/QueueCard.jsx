@@ -1,4 +1,5 @@
 import { Card } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const QueueCard = ({name}) => {
   const variants = [
@@ -14,12 +15,14 @@ const QueueCard = ({name}) => {
 
   const selectedVariant = variants[Math.floor(Math.random() * variants.length)]
   return (
-    <Card bg={selectedVariant} text={selectedVariant === "light" ? "dark" : "white"}>
-      <Card.Body>
-        <Card.Title>{name}</Card.Title>
-        <Card.Text>{`Una cola llamada ${name}`}</Card.Text>
-      </Card.Body>
-    </Card>
+    <Link to={`/${name}`}>
+      <Card className="queue-card" bg={selectedVariant} text={selectedVariant === "light" ? "dark" : "white"}>
+        <Card.Body>
+          <Card.Title>{name}</Card.Title>
+          <Card.Text>{`Una cola llamada ${name}`}</Card.Text>
+        </Card.Body>
+      </Card>
+    </Link>
   );
 }
  

@@ -1,12 +1,13 @@
 import QueueCard from "./QueueCard";
 
+
 const Home = () => {
-  const sampleQueues = ["cola1", "cola2", "cola3", "cola4"];
+  const sampleStates = ["cola1", "cola2", "cola3", "cola4"];
 
   return (
-    <>
-      {sampleQueues.map(name => <QueueCard name={name} />)}
-    </>
+    <div className="queue-card-deck">
+      {sampleStates.map((name, index) => <QueueCard key={index} name={name} />)}
+    </div>
   );
 }
  
