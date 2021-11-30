@@ -5,7 +5,7 @@ const CustomNavbar = () => {
     return (
       <Navbar className="navbar">
         <Link to="/">
-          <Navbar.Brand>Home</Navbar.Brand>
+          <Navbar.Brand className="brand">Home</Navbar.Brand>
         </Link>
       </Navbar>
     );

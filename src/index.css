@@ -4,16 +4,21 @@
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
-    margin-top: 3%;
+    margin-top: 2%;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.queue-card, .element-card {
+    flex: 1;
+    color: black;
 }
 
 .queue-card {
-    flex: 1;
-    padding: 2%;
-    margin: 3%;
-    color: black;
+    padding: 1%;
+    margin: 2%;
 
-    box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+    box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(78, 72, 72, 0.05);
     transition: .3s transform cubic-bezier(.155, 1.105,.295,1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
     cursor: pointer;
 }
@@ -23,21 +28,26 @@
     box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
 }
 
+
+.element-card {
+    padding: 1px; 
+    margin: 3px;
+}
+
 .navbar {
     background-color: cornflowerblue;
+}
+
+.brand {
+    color: whitesmoke !important;
     font-weight: bold;
-    padding: 1%;
+    padding-left: 1rem;
 }
 
 .title {
     display: flex;
     justify-content: center;
-}
-
-
-.element-card {
-    flex: 1;
-    margin: 1%;
+    margin-top: 2%;
 }
 
 
