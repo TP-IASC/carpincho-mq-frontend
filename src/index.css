@@ -32,6 +32,8 @@
 .element-card {
     padding: 1px; 
     margin: 3px;
+
+    cursor: default;
 }
 
 .navbar {
@@ -50,6 +52,9 @@
     margin-top: 2%;
 }
 
+.queue-form, .message-form {
+    margin: 2% 30% 2% 30%;
+}
 
 body {
     background-color: rgb(158, 183, 231);

@@ -1,6 +1,6 @@
 import { Card, OverlayTrigger, Popover } from "react-bootstrap";
 
-const ElementInfo = ({info}) => {
+const ElementCard = ({info}) => {
   return (
     <OverlayTrigger 
       placement="auto"
@@ -26,4 +26,4 @@ const ElementInfo = ({info}) => {
   );
 }
  
-export default ElementInfo;
+export default ElementCard;
