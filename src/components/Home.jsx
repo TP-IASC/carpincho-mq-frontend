@@ -2,30 +2,35 @@ import QueueCard from "./QueueCard";
 import { Form, Col, Row } from "react-bootstrap";
 import SpinnerButton from "./SpinnerButton";
 import { useEffect, useState } from "react";
+import { carpinchoGet, carpinchoPost } from "../utils";
+import config from "../config.json";
 
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
   const [newQueue, setNewQueue] = useState(null);
-
-  const sampleStates = ["cola1", "cola2", "cola3", "cola4"];
+  const [queues, setQueues] = useState([]);
 
   const onSubmit = (event) => {
     event.preventDefault();
-    
-    const postQueue = () => {
-      console.log(`Posting: ${newQueue}`);
-      setTimeout(() => { 
-        setLoading(false);
-      }, 5000);
-    }
-
     setLoading(true);
-    postQueue();
+    carpinchoPost("/queues", { name: newQueue, workMode: "publish_subscribe", maxSize: 1000 }).catch(err => {
+      alert(err);
+    }).finally(() => {
+      setLoading(false);
+    });
   }
 
   useEffect(() => {
-    // Fetch queue names
+    const interval = setInterval(() => {
+      carpinchoGet("/queues").then(res => {
+        setQueues(res.data);
+      }).catch(err => {
+        alert(err);
+      });
+    }, config.requestInterval);
+
+    return () => { clearInterval(interval) };
   }, []);
 
   return (
@@ -35,7 +40,7 @@ const Home = () => {
           <Col>
             <Form.Control 
               required 
-              placeholder="Payload" 
+              placeholder="Queue name" 
               type="text"
               onChange={(e) => setNewQueue(e.target.value)} 
             />
@@ -45,7 +50,7 @@ const Home = () => {
           </Col>
         </Row>
       </Form>
-      {sampleStates.map((name, index) => <QueueCard key={index} name={name} />)}
+      {queues.map((name, index) => <QueueCard key={index} name={name} />)}
     </div>
   );
 }

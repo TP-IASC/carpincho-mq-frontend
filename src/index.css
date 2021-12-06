@@ -29,11 +29,23 @@
 }
 
 
-.element-card {
+.element-card, .subscriber-card {
     padding: 1px; 
     margin: 3px;
 
     cursor: default;
+}
+
+.queue-state-container {
+    margin: 1% 10% 1% 10%;
+    border-radius: 25px;
+    background-color: rgb(190, 209, 243);
+    padding: 2%;
+}
+
+.queue-state-container h3 {
+    display: flex;
+    justify-content: center;
 }
 
 .navbar {

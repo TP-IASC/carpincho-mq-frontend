@@ -1,0 +1,8 @@
+{
+    "node": {
+        "address": "localhost",
+        "port": 3333
+    },
+
+    "requestInterval": 4000
+}
