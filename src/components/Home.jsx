@@ -1,28 +1,31 @@
 import QueueCard from "./QueueCard";
 import { Form, Col, Row } from "react-bootstrap";
 import SpinnerButton from "./SpinnerButton";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { carpinchoGet, carpinchoPost, handleError } from "../utils";
 import config from "../config.json";
 
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
-  const [newQueue, setNewQueue] = useState(null);
+  const [newQueueName, setNewQueueName] = useState(null);
+  const [newQueueWorkMode, setNewQueueWorkMode] = useState("publish_subscribe");
+  const [newQueueMaxSize, setNewQueueMaxSize] = useState(null);
   const [queues, setQueues] = useState([]);
 
-  const getQueues = () => {
+  const getQueues = useCallback(() => {
     return carpinchoGet("/queues").then(res => {
       setQueues(res.data);
     }).catch(error => {
       handleError(error);
     });
-  };
+  }, []);
 
   const onSubmit = (event) => {
     event.preventDefault();
     setLoading(true);
-    carpinchoPost("/queues", { name: newQueue, workMode: "publish_subscribe", maxSize: 1000 }).catch(error => {
+    const body = { name: newQueueName, workMode: newQueueWorkMode, maxSize: newQueueMaxSize };
+    carpinchoPost("/queues", body).catch(error => {
       handleError(error);
     }).finally(() => {
       getQueues().then(() => {
@@ -36,7 +39,7 @@ const Home = () => {
       getQueues();
     }, config.requestInterval);
     return () => { clearInterval(interval) };
-  }, []);
+  }, [getQueues]);
 
   return (
     <div className="queue-card-deck">
@@ -47,7 +50,21 @@ const Home = () => {
               required 
               placeholder="Queue name" 
               type="text"
-              onChange={(e) => setNewQueue(e.target.value)} 
+              onChange={(e) => setNewQueueName(e.target.value)} 
+            />
+          </Col>
+          <Col>
+            <Form.Select required onChange={(e) => setNewQueueWorkMode(e.target.value)}>
+              <option defaultValue value="publish_subscribe">Publish-Subscribe</option>
+              <option value="work_queue">Cola de trabajo</option>
+            </Form.Select>
+          </Col>
+          <Col>
+            <Form.Control 
+              required
+              placeholder="Maximum size"
+              type="number"
+              onChange={(e) => setNewQueueMaxSize(e.target.value)}
             />
           </Col>
           <Col>
