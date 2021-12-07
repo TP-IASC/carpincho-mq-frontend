@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Col, Form, Row } from "react-bootstrap";
 import { useParams } from "react-router";
 import ElementCard from "./ElementCard";
 import SpinnerButton from "./SpinnerButton";
 import config from "../config.json";
-import { carpinchoGet, carpinchoPost } from "../utils";
+import { carpinchoGet, carpinchoPost, handleError } from "../utils";
 import SubscriberCard from "./SubscriberCard";
 
 
@@ -14,27 +14,32 @@ const QueueInfo = () => {
   const [loading, setLoading] = useState(false);
   const [payload, setPayload] = useState(null);
 
+  const getState = useCallback(() => {
+    return carpinchoGet(`/queues/${name}/state`).then(res => {
+      setState(res.data);
+    }).catch(error => {
+      handleError(error);
+    });
+  }, [name]);
+
   const onSubmit = (event) => {
     event.preventDefault();
     setLoading(true);
-    carpinchoPost(`/queues/${name}/messages`, { payload }).catch(err => {
-      alert(err);
+    carpinchoPost(`/queues/${name}/messages`, { payload }).catch(error => {
+      handleError(error);
     }).finally(() => {
-      setLoading(false);
+      getState().then(() => {
+        setLoading(false);
+      });
     });
   }
 
   useEffect(() => {
     const interval = setInterval(() => {
-      carpinchoGet(`/queues/${name}/state`).then(res => {
-        setState(res.data);
-      }).catch(err => {
-        alert(err);
-      });
+      getState();
     }, config.requestInterval); 
-
     return () => { clearInterval(interval); }
-  }, [name]);
+  }, [getState]);
 
 
   var elements = [];
