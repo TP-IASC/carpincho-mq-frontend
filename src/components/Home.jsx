@@ -42,38 +42,43 @@ const Home = () => {
   }, [getQueues]);
 
   return (
-    <div className="queue-card-deck">
-      <Form onSubmit={onSubmit} className="message-form">
-        <Row>
-          <Col>
-            <Form.Control 
-              required 
-              placeholder="Queue name" 
-              type="text"
-              onChange={(e) => setNewQueueName(e.target.value)} 
-            />
-          </Col>
-          <Col>
-            <Form.Select required onChange={(e) => setNewQueueWorkMode(e.target.value)}>
-              <option defaultValue value="publish_subscribe">Publish-Subscribe</option>
-              <option value="work_queue">Cola de trabajo</option>
-            </Form.Select>
-          </Col>
-          <Col>
-            <Form.Control 
-              required
-              placeholder="Maximum size"
-              type="number"
-              onChange={(e) => setNewQueueMaxSize(e.target.value)}
-            />
-          </Col>
-          <Col>
-            <SpinnerButton text="New queue" loading={loading} />
-          </Col>
-        </Row>
-      </Form>
-      {queues.map((name, index) => <QueueCard key={index} name={name} />)}
-    </div>
+    <>
+      <div className="center-form-container">
+        <Form onSubmit={onSubmit} className="message-form">
+          <Row>
+            <Col>
+              <Form.Control 
+                required 
+                placeholder="Queue name" 
+                type="text"
+                onChange={(e) => setNewQueueName(e.target.value)} 
+              />
+            </Col>
+            <Col>
+              <Form.Select required onChange={(e) => setNewQueueWorkMode(e.target.value)}>
+                <option defaultValue value="publish_subscribe">Publish-Subscribe</option>
+                <option value="work_queue">Cola de trabajo</option>
+              </Form.Select>
+            </Col>
+            <Col>
+              <Form.Control 
+                required
+                placeholder="Maximum size"
+                type="number"
+                onChange={(e) => setNewQueueMaxSize(e.target.value)}
+              />
+            </Col>
+            <Col>
+              <SpinnerButton text="New queue" loading={loading} />
+            </Col>
+          </Row>
+        </Form>
+      </div>
+
+      <div className="queue-card-deck">
+        {queues.map((name, index) => <QueueCard key={index} name={name} />)}
+      </div>
+    </>
   );
 }
  

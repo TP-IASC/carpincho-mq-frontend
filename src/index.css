@@ -4,9 +4,13 @@
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
-    margin-top: 2%;
     padding-left: 10%;
     padding-right: 10%;
+}
+
+.center-form-container {
+    display: flex;
+    justify-content: center;
 }
 
 .queue-card, .element-card {
@@ -65,7 +69,8 @@
 }
 
 .queue-form, .message-form {
-    margin: 2% 10% 5% 10%;
+    margin-top: 2%;
+    margin-bottom: 2%;
 }
 
 body {

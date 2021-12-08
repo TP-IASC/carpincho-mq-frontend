@@ -59,24 +59,26 @@ const QueueInfo = () => {
   return (
     <>
       <h1 className="title">{name}</h1>
-      <Form onSubmit={onSubmit} className="message-form">
-        <Row>
-          <Col>
-            <Form.Control 
-              required 
-              placeholder="Payload" 
-              type="text"
-              onChange={(e) => setPayload(e.target.value)} 
-            />
-          </Col>
-          <Col>
-            <SpinnerButton text="Push message" loading={loading} />
-          </Col>
-          <Col>
-            <Button variant="danger" onClick={deleteQueue}>Delete queue</Button>
-          </Col>
-        </Row>
-      </Form>
+      <div className="center-form-container">
+        <Form onSubmit={onSubmit} className="message-form">
+          <Row>
+            <Col>
+              <Form.Control 
+                required 
+                placeholder="Payload" 
+                type="text"
+                onChange={(e) => setPayload(e.target.value)} 
+              />
+            </Col>
+            <Col>
+              <SpinnerButton text="Push message" loading={loading} />
+            </Col>
+            <Col>
+              <Button variant="danger" onClick={deleteQueue}>Delete queue</Button>
+            </Col>
+          </Row>
+        </Form>
+      </div>
       {state ?
         <div>
           <div className="queue-state-container">
