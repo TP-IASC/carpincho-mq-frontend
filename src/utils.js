@@ -23,3 +23,7 @@ export function carpinchoGet(endpoint) {
 export function carpinchoPost(endpoint, data) {
     return Axios.post(node + endpoint, data);
 }
+
+export function carpinchoDelete(endpoint, data = {}) {
+    return Axios.delete(node + endpoint, data);
+}

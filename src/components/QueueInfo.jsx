@@ -1,14 +1,15 @@
 import { useEffect, useState, useCallback } from "react";
-import { Col, Form, Row } from "react-bootstrap";
-import { useParams } from "react-router";
+import { Col, Form, Row, Button } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router";
 import ElementCard from "./ElementCard";
 import SpinnerButton from "./SpinnerButton";
 import config from "../config.json";
-import { carpinchoGet, carpinchoPost, handleError } from "../utils";
+import { carpinchoGet, carpinchoPost, handleError, carpinchoDelete } from "../utils";
 import SubscriberCard from "./SubscriberCard";
 
 
 const QueueInfo = () => {
+  const navigate = useNavigate();
   const { name } = useParams();
   const [state, setState] = useState();
   const [loading, setLoading] = useState(false);
@@ -32,6 +33,14 @@ const QueueInfo = () => {
         setLoading(false);
       });
     });
+  }
+
+  const deleteQueue = (event) => {
+    carpinchoDelete(`/queues/${name}`).then(() => {
+      navigate("/");
+    }).catch(error => {
+      handleError(error);
+    })
   }
 
   useEffect(() => {
@@ -62,6 +71,9 @@ const QueueInfo = () => {
           </Col>
           <Col>
             <SpinnerButton text="Push message" loading={loading} />
+          </Col>
+          <Col>
+            <Button variant="danger" onClick={deleteQueue}>Delete queue</Button>
           </Col>
         </Row>
       </Form>
