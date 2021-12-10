@@ -9,7 +9,7 @@ import config from "../config.json";
 const Home = () => {
   const [loading, setLoading] = useState(false);
   const [newQueueName, setNewQueueName] = useState(null);
-  const [newQueueWorkMode, setNewQueueWorkMode] = useState("publish_subscribe");
+  const [newQueueWorkMode, setNewQueueWorkMode] = useState("pub_sub");
   const [newQueueMaxSize, setNewQueueMaxSize] = useState(null);
   const [queues, setQueues] = useState([]);
 
@@ -24,7 +24,7 @@ const Home = () => {
   const onSubmit = (event) => {
     event.preventDefault();
     setLoading(true);
-    const body = { name: newQueueName, workMode: newQueueWorkMode, maxSize: newQueueMaxSize };
+    const body = { name: newQueueName, workMode: newQueueWorkMode, maxSize: newQueueMaxSize, queueMode: "non_transactional" };
     carpinchoPost("/queues", body).catch(error => {
       handleError(error);
     }).finally(() => {
@@ -56,7 +56,7 @@ const Home = () => {
             </Col>
             <Col>
               <Form.Select required onChange={(e) => setNewQueueWorkMode(e.target.value)}>
-                <option defaultValue value="publish_subscribe">Publish-Subscribe</option>
+                <option defaultValue value="pub_sub">Publish-Subscribe</option>
                 <option value="work_queue">Cola de trabajo</option>
               </Form.Select>
             </Col>
