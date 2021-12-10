@@ -10,6 +10,7 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const [newQueueName, setNewQueueName] = useState(null);
   const [newQueueWorkMode, setNewQueueWorkMode] = useState("pub_sub");
+  const [newQueueMode, setNewQueueMode] = useState("transactional");
   const [newQueueMaxSize, setNewQueueMaxSize] = useState(null);
   const [queues, setQueues] = useState([]);
 
@@ -24,7 +25,12 @@ const Home = () => {
   const onSubmit = (event) => {
     event.preventDefault();
     setLoading(true);
-    const body = { name: newQueueName, workMode: newQueueWorkMode, maxSize: newQueueMaxSize, queueMode: "non_transactional" };
+    const body = { 
+      name: newQueueName, 
+      workMode: newQueueWorkMode, 
+      maxSize: newQueueMaxSize, 
+      queueMode: newQueueMode,
+    };
     carpinchoPost("/queues", body).catch(error => {
       handleError(error);
     }).finally(() => {
@@ -55,18 +61,24 @@ const Home = () => {
               />
             </Col>
             <Col>
-              <Form.Select required onChange={(e) => setNewQueueWorkMode(e.target.value)}>
-                <option defaultValue value="pub_sub">Publish-Subscribe</option>
-                <option value="work_queue">Cola de trabajo</option>
-              </Form.Select>
-            </Col>
-            <Col>
               <Form.Control 
                 required
                 placeholder="Maximum size"
                 type="number"
                 onChange={(e) => setNewQueueMaxSize(e.target.value)}
               />
+            </Col>
+            <Col>
+              <Form.Select required onChange={(e) => setNewQueueWorkMode(e.target.value)}>
+                <option defaultValue value="pub_sub">Publish-Subscribe</option>
+                <option value="work_queue">Cola de trabajo</option>
+              </Form.Select>
+            </Col>
+            <Col>
+              <Form.Select required onChange={(e) => setNewQueueMode(e.target.value)}>
+                <option defaultValue value="transactional">Transaccional</option>
+                <option value="non_transactional">No transaccional</option>
+              </Form.Select>
             </Col>
             <Col>
               <SpinnerButton text="New queue" loading={loading} />

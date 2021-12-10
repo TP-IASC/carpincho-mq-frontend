@@ -82,18 +82,19 @@ const QueueInfo = () => {
       {state ?
         <div>
           <div className="queue-state-container">
-            <h3>Properties</h3>
-            <div><b>Max size: </b>{state["max_size"]}</div>
-            <div><b>Work mode: </b>{state["work_mode"]}</div> 
+            <h3>Propiedades</h3>
+            <div><b>Tamaño maximo: </b>{state["max_size"]}</div>
+            <div><b>Modo de trabajo: </b>{state["work_mode"]}</div> 
+            <div><b>Modo de transaccionalidad: </b>{state["queue_mode"]}</div> 
           </div>
           <div className="queue-state-container">
-            <h3>Subscribers</h3>
+            <h3>Subscriptores</h3>
             <div className="subscriber-card-deck">
-              {state.subscribers.map(sub => <SubscriberCard subscriber={sub} />)}
+              {state.subscribers.map((sub, index) => <SubscriberCard key={index} subscriber={sub} />)}
             </div>
           </div>
           <div className="queue-state-container">
-            <h3>Elements</h3>
+            <h3>Elementos</h3>
             <div className="element-card-deck">
               {elements}
             </div>
